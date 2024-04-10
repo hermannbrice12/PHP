@@ -5,3 +5,24 @@ interface IVehicule
     function deplacement() : void;
     function klaxonner() : void;
 }
+
+class Vehicule implements IVehicule
+{
+    public function __construct() {
+        echo "fabrication du vehicule";
+    }
+
+    function deplacement() : void
+    {
+        echo "Le véhicule Tesla se déplace.";
+    }
+
+    function klaxonner() :void
+    {
+   
+        echo "pin pin";
+    }
+}
+
+class Tesla extends Vehicule
+
