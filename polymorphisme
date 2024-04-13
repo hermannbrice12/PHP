@@ -1,0 +1,19 @@
+<?php
+
+class utilisateurVehicule {
+    private $vehicule;
+
+    public function __construct(IVehicule $vehicule) {
+        $this->vehicule = $vehicule;
+    }
+
+    public function utilisserVehicule() {
+        $this->vehicule->deplacement();
+        $this->vehicule->klaxonner();
+    }
+}
+
+
+$vehiculeTesla = new Tesla();
+$utilisateur = new utilisateurVehicule($vehiculeTesla);
+$utilisateur->utiliserVehicule();
