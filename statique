@@ -1,0 +1,13 @@
+<?php
+
+class utilisateurVehicule {
+
+    public static function utiliserVehicule(IVehicule $vehicule) {
+        $vehicule->deplacement();
+        $vehicule->klaxonner();
+    }
+}
+
+
+$vehiculeTesla = new Tesla();
+utilisateurVehicule::utiliserVehicule($vehiculeTesla);
