@@ -1,0 +1,17 @@
+<?php
+
+class Personne {
+    public function __construct($nom, $dateCreation) {
+        $this->Nom = $Nom;
+      
+        $this->DateCreation = new DateTime($DateCreation);
+    }
+}
+
+
+$Nom = "Alice";
+$DateCreation = "09/04/2024";
+
+$personne = new Personne($nom, $dateCreation);
+
+$return = Converter($personne);
