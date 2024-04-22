@@ -1,0 +1,94 @@
+<?php
+// Interface pour les cartes
+interface CardInterface {
+    public function __toString();
+}
+
+
+// Énumération pour les valeurs des cartes
+abstract class ValeurCarte {
+    const VALET = 'valet';
+    const DAME = 'dame';
+    const ROI = 'roi';
+    const AS = 'as';
+}
+
+// Énumération pour les enseignes des cartes
+abstract class EnseigneCarte {
+    const CARREAU = 'carreau';
+    const COEUR = 'coeur';
+    const PIQUE = 'pique';
+    const TREFLE = 'trefle';
+}
+
+
+
+// Classe représentant une carte individuelle
+class Card implements CardInterface {
+    public $value;
+    public $suit;
+
+    public function __construct($value, $suit) {
+        $this->value = $value;
+        $this->suit = $suit;
+    }
+
+    public function __toString() {
+        return $this->value . ' de ' . $this->suit;
+    }
+}
+
+// Fonction pour créer et distribuer les cartes
+function distribuerCartes($nbJoueurs, $nbCartes) {
+    if ($nbCartes % $nbJoueurs !== 0) {
+        throw new Exception("Le nombre de cartes doit être divisible par le nombre de joueurs.");
+    }
+
+    $jeu = array();
+    $valeurs = array('valet', 'dame', 'roi', 'as');
+    $enseignes = array('carreau', 'coeur', 'pique', 'trèfle');
+
+    // Création du jeu de cartes
+    foreach ($valeurs as $valeur) {
+        foreach ($enseignes as $enseigne) {
+            $jeu[] = new Card($valeur, $enseigne);
+        }
+    }
+
+    // Mélange du jeu de cartes
+    shuffle($jeu);
+
+    // Distribution des cartes aux joueurs
+    $mains = array();
+    for ($i = 0; $i < $nbJoueurs; $i++) {
+        $mains[$i] = array();
+    }
+    $carteIndex = 0;
+    foreach ($jeu as $carte) {
+        $mains[$carteIndex % $nbJoueurs][] = $carte;
+        $carteIndex++;
+    }
+
+    return $mains;
+}
+
+// Variables
+$nbJoueurs = 2;
+$nbCartes = 30 ;
+
+try {
+    // Distribution des cartes
+    $mains = distribuerCartes($nbJoueurs, $nbCartes);
+
+    // Affichage des mains des joueurs
+    for ($i = 0; $i < $nbJoueurs; $i++) {
+        echo "Main du joueur " . ($i + 1) . " :\n";
+        foreach ($mains[$i] as $carte) {
+            echo "- $carte\n";
+        }
+        echo "\n";
+    }
+} catch (Exception $e) {
+    echo "Erreur : " . $e->getMessage();
+}
+?>
