@@ -1,19 +1,35 @@
 <?php
 
-class utilisateurVehicule {
+interface IVehicule {
+    public function deplacement($distance);
+    public function klaxonner($sound);
+}
+
+class Tesla implements IVehicule {
+    public function deplacement($distance) {
+        echo "La Tesla se déplace sur une distance de $distance kilomètres.\n";
+    }
+
+    public function klaxonner($sound) {
+        echo "La Tesla klaxonne : $sound!\n";
+    }
+}
+
+class UtilisateurVehicule {
     private $vehicule;
 
     public function __construct(IVehicule $vehicule) {
         $this->vehicule = $vehicule;
     }
 
-    public function utilisserVehicule() {
-        $this->vehicule->deplacement();
-        $this->vehicule->klaxonner();
+    public function utiliserVehicule($distance, $sound) {
+        $this->vehicule->deplacement($distance);
+        $this->vehicule->klaxonner($sound);
     }
 }
 
-
 $vehiculeTesla = new Tesla();
-$utilisateur = new utilisateurVehicule($vehiculeTesla);
-$utilisateur->utiliserVehicule();
+$utilisateur = new UtilisateurVehicule($vehiculeTesla);
+$utilisateur->utiliserVehicule(150, 'Beep Beep');
+
+?>
