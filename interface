@@ -4,6 +4,8 @@ interface IVehicule
 {
     function deplacement() : void;
     function klaxonner() : void;
+    function stop() : void;
+}
 }
 
 class Vehicule implements IVehicule
@@ -21,6 +23,11 @@ class Vehicule implements IVehicule
     {
    
         echo "pin pin";
+    }
+    function stop() :void
+    {
+   
+        echo "la voiture s'arrete";
     }
 }
 
